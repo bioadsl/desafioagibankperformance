@@ -1,0 +1,26 @@
+# ==========================================
+# Executáveis e Binários (Não subir ao Git)
+# ==========================================
+apache-jmeter-*/
+apache-jmeter-*.tgz
+apache-jmeter-*.zip
+
+# ==========================================
+# Resultados de Execução Local (Gerados via CLI)
+# ==========================================
+*.jtl
+relatorio-html/
+
+# ==========================================
+# Logs e Arquivos Temporários do JMeter
+# ==========================================
+jmeter.log
+*/jmeter.log
+
+# ==========================================
+# Arquivos de Sistema e IDEs
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
