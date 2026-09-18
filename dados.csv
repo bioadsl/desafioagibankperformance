@@ -1,0 +1,4 @@
+inputName,address,city,state,zipCode,cardType,creditCardNumber,creditCardMonth,creditCardYear,nameOnCard
+Fabricio,qd 1,testes,testes,125689,visa,1234567890123456,11,2027,Fabricio Agi
+Ana Silva,Av Central 10,Sao Paulo,SP,01000000,amex,9876543210987654,05,2029,Ana S Silva
+Carlos Lima,Rua das Flores 5,Porto Alegre,RS,90000000,diners,4567891230123456,08,2030,Carlos M Lima
