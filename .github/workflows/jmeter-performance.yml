@@ -5,7 +5,7 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-  workflow_dispatch: # Permite que você ative o teste manualmente clicando em um botão no GitHub
+  workflow_dispatch: # Permite rodar manualmente clicando no botão do GitHub
 
 jobs:
   performance-test:
@@ -24,9 +24,17 @@ jobs:
 
     - name: Baixar e Instalar Apache JMeter 5.6.3
       run: |
-        wget https://apache.org
-        tar -xzf apache-jmeter-5.6.3.tgz
-        echo "$GITHUB_WORKSPACE/apache-jmeter-5.6.3/bin" >> $GITHUB_PATH
+        set -euo pipefail
+        JMETER_VERSION="5.6.3"
+        JMETER_ARCHIVE="apache-jmeter-${JMETER_VERSION}.tgz"
+        JMETER_URL="https://archive.apache.org/dist/jmeter/binaries/${JMETER_ARCHIVE}"
+
+        curl --fail --location --show-error --retry 3 \
+          "$JMETER_URL" \
+          --output "$JMETER_ARCHIVE"
+
+        tar -xzf "$JMETER_ARCHIVE"
+        echo "$GITHUB_WORKSPACE/apache-jmeter-${JMETER_VERSION}/bin" >> "$GITHUB_PATH"
 
     - name: Verificar integridade dos arquivos de massa e script
       run: |
@@ -39,7 +47,7 @@ jobs:
         jmeter -Djava.net.preferIPv4Stack=true -n -t script_blazedemo.jmx -l resultado.jtl -e -o ./relatorio-html
 
     - name: Publicar Relatório HTML como Artefato do GitHub
-      if: always() # Garante que o relatório seja salvo mesmo se houver falhas nas requisições
+      if: always() # Salva o relatório mesmo se houverem pequenas falhas de requisição HTTP
       uses: actions/upload-artifact@v4
       with:
         name: relatorio-performance-jmeter
